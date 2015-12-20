@@ -1,14 +1,8 @@
 var express = require('express');
+var fortune = require('./lib/fortunes');
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 var app = express();
-
-var fortunes = [
-'Everythings going to be awesome!',
-'Go buy insurance.',
-'Meh, you\'re not going to die.',
-'Win the lottery!'
-]
 
 app.engine('handlebars', handlebars.engine);
 
@@ -28,7 +22,7 @@ app.get('/about', function(req, res){
 	var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
 	// res.type('text/plain');
 	// res.send('Meadowlark Travel - We\'re a travel agency!')
-	res.render('about', {fortune : randomFortune});
+	res.render('about', {fortune : fortune.getFortune()});
 });
 
 
